@@ -1,0 +1,30 @@
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int main(){
+char msg[] = &quot;HELLO&quot;;
+char key[] = &quot;KEY&quot;;
+int msgLen = strlen(msg), keyLen = strlen(key), i, j;
+char newKey[msgLen], encryptedMsg[msgLen], decryptedMsg[msgLen];
+//generating new key
+for(i = 0, j = 0; i &lt; msgLen; ++i, ++j){
+if(j == keyLen)
+j = 0;
+newKey[i] = key[j];
+}
+newKey[i] = &#39;\0&#39;;
+//encryption
+for(i = 0; i &lt; msgLen; ++i)
+encryptedMsg[i] = ((msg[i] + newKey[i]) % 26) + &#39;A&#39;;
+encryptedMsg[i] = &#39;\0&#39;;
+//decryption
+for(i = 0; i &lt; msgLen; ++i)
+decryptedMsg[i] = (((encryptedMsg[i] - newKey[i]) + 26) % 26) + &#39;A&#39;;
+decryptedMsg[i] = &#39;\0&#39;;
+printf(&quot;Original Message: %s&quot;, msg);
+printf(&quot;\nKey: %s&quot;, key);
+printf(&quot;\nNew Generated Key: %s&quot;, newKey);
+printf(&quot;\nEncrypted Message: %s&quot;, encryptedMsg);
+printf(&quot;\nDecrypted Message: %s&quot;, decryptedMsg);
+return 0;
+}
